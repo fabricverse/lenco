@@ -1,0 +1,624 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Bantoo | Pay with Lenco</title>
+    <header>
+        <script src={{url}}></script>
+    </header>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        body {
+            color: #333;
+            line-height: 1.5;
+            font-weight: 400;
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Left side - gray background */
+        .left-side {
+            background-color: #f5f5f5;
+            width: 50%;
+            padding: 80px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        /* Right side - white background */
+        .right-side {
+            background-color: white;
+            width: 50%;
+            padding: 120px 40px 40px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            margin-bottom: 60px;
+        }
+
+        /* Hero section styling for left side */
+        .hero-content {
+            max-width: 450px;
+            margin-top: 30px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 600;
+            color: #111;
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            font-size: 40px;
+            font-weight: 600;
+            color: #aaaaaa;
+            margin-bottom: 24px;
+            line-height: 1.2;
+        }
+
+        .payment-info {
+            max-width: 450px;
+        }
+
+        .payment-info p {
+            margin-bottom: 30px;
+            font-size: 18px;
+            line-height: 1.6;
+            color: #7a7a7a;
+        }
+
+        .expandable-section {
+            margin-top: 40px;
+        }
+
+        .expandable-header {
+            background: none;
+            font-weight: 500;
+            color: #aaaaaa;
+            cursor: pointer;
+            padding: 8px 0;
+            width: 100%;
+            border: none;
+            text-align: left;
+            outline: none;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .expandable-header:after {
+            content: '+';
+            font-size: 18px;
+            color: #aaaaaa;
+        }
+
+        .expandable-header.active:after {
+            content: '−';
+        }
+
+        .expandable-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-out;
+            background-color: rgba(255, 255, 255, 0.5);
+            border-radius: 6px;
+        }
+
+        .step {
+            padding: 16px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .step:last-child {
+            border-bottom: none;
+        }
+
+        .step strong {
+            color: #aaaaaa;
+            font-weight: 500;
+        }
+
+        .footer {
+            font-size: 14px;
+            color: #888;
+            margin-top: 40px;
+        }
+
+        .footer a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* Main content area for right side */
+        .main-content {
+            width: 100%;
+            max-width: 360px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        /* Receipt-Style Order Summary */
+        .receipt {
+            background-color: white;
+            border-radius: 8px;
+            padding: 0;
+            margin-bottom: 36px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+            border: 1px solid #eaeaea;
+            font-family: 'Courier New', monospace;
+            width: 100%;
+        }
+
+        .receipt-header {
+            text-align: center;
+            padding: 16px;
+            border-bottom: 1px dashed #ccc;
+        }
+
+        .receipt-title {
+            font-size: 14px;
+            font-weight: bold;
+            text-transform: uppercase;
+            margin-bottom: 4px;
+            letter-spacing: 0.5px;
+        }
+
+        .receipt-subtitle {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .receipt-merchant {
+            font-weight: bold;
+            font-size: 16px;
+            margin-bottom: 2px;
+        }
+
+        .receipt-date {
+            font-size: 12px;
+            color: #777;
+        }
+
+        .receipt-body {
+            padding: 16px;
+        }
+
+        .receipt-items {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 12px;
+        }
+
+        .receipt-items th {
+            text-align: left;
+            font-size: 12px;
+            padding: 4px 4px 8px;
+            border-bottom: 1px solid #eee;
+            color: #666;
+        }
+
+        .receipt-items th:last-child {
+            text-align: right;
+        }
+
+        .receipt-items td {
+            padding: 8px 4px;
+            font-size: 13px;
+        }
+
+        .receipt-items td:last-child {
+            text-align: right;
+        }
+
+        .receipt-total-line {
+            display: flex;
+            justify-content: space-between;
+            border-top: 1px solid #111;
+            padding-top: 8px;
+            margin-top: 8px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .receipt-footer {
+            border-top: 1px dashed #ccc;
+            padding: 12px 16px;
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+        }
+
+        /* Form styling */
+        .form-group {
+            margin-bottom: 18px;
+            width: 100%;
+        }
+
+        label {
+            display: block;
+            font-size: 14px;
+            margin-bottom: 8px;
+            color: #444;
+            font-weight: 500;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+            border-radius: 6px;
+            font-size: 14px;
+            transition: all 0.2s ease;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #3066BE;
+            box-shadow: 0 0 0 2px rgba(48, 102, 190, 0.1);
+        }
+
+        form {
+            width: 100%;
+        }
+
+        button[type="submit"] {
+            background-color: #3066BE;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 15px;
+            font-weight: 500;
+            width: 100%;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            margin-top: 10px;
+        }
+
+        button[type="submit"]:hover {
+            background-color: #2855a3;
+            transform: translateY(-1px);
+        }
+
+        /* Message container */
+        .message-container {
+            display: none;
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 16px;
+            font-size: 13px;
+            width: 100%;
+        }
+
+        .message-container.error {
+            background-color: #fff2f0;
+            border: 1px solid #ffccc7;
+        }
+
+        .message-container.warning {
+            background-color: #fffdf0;
+            border: 1px solid #eeecdf;
+        }
+
+        .message-container.success {
+            background-color: #f6ffed;
+            border: 1px solid #b7eb8f;
+        }
+
+        .message-title {
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        /* Payment method logos */
+        .payment-logos {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-top: 30px;
+        }
+
+        .payment-logos img {
+            height: 30px;
+            width: 60px;
+            object-fit: contain;
+            mix-blend-mode: luminosity;
+            opacity: 0.8;
+            filter: contrast(1.2);
+            transition: mix-blend-mode 0.3s ease; /* Add transition for smooth effect */
+        }
+        .payment-logos img:hover {
+            mix-blend-mode: normal;
+            opacity: 1; /* optional, make it fully opaque on hover */
+        }
+
+        /* Ensure description text wraps properly */
+        .receipt-items td {
+            padding: 8px 4px;
+            font-size: 13px;
+            word-wrap: break-word;
+            white-space: normal;
+            max-width: 250px; /* Control width of description cell */
+        }
+
+        /* For very small screens, ensure proper stacking */
+        @media (max-width: 768px) {
+            body {
+                flex-direction: column;
+            }
+            
+            .left-side, .right-side {
+                width: 100%;
+                padding: 40px 24px;
+            }
+            
+            .left-side {
+                display: flex;
+                flex-direction: column;
+                min-height: 300px;
+            }
+            
+            .right-side {
+                display: flex;
+                flex-direction: column;
+                min-height: 400px;
+            }
+            
+            .main-content {
+                margin: 0 auto;
+                flex: 1;
+            }
+            
+            .payment-logos {
+                margin-top: 30px;
+                width: 100%;
+            }
+            
+            /* Ensure footer displays at the bottom on mobile */
+            .page-container {
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
+            }
+            
+            .page-content {
+                flex: 1;
+            }
+        }
+
+        /* Dark mode support for payment logos */
+        @media (prefers-color-scheme: dark) {
+            .payment-logos img {
+                filter: brightness(1.2) contrast(1.5);
+                border-radius: 4px;
+                padding: 3px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Left side (grey background) -->
+    <div class="left-side">
+        <div class="hero-content">
+            <div class="logo">
+                <img src="https://bantoo.app/files/eIeGfxq.png" height="40px" width="auto"/>
+            </div>
+
+            <div class="payment-info">
+                <h2>Quick & Easy Payments</h2>
+                <p>Bantoo Pay helps entrepreneurs and creators quickly get paid in places without Stripe or Paypal.</p>
+                
+                <div class="expandable-section">
+                    <button class="expandable-header">How It Works</button>
+                    <div class="expandable-content">
+                        <div class="step">
+                            <p><strong>1. Enter Your Email</strong></p>
+                            <p>Provide your email address for a receipt and confirmation.</p>
+                        </div>
+                        <div class="step">
+                            <p><strong>2. Review Payment Details</strong></p>
+                            <p>Double-check the vendor name, service description, and total amount before proceeding.</p>
+                        </div>
+                        <div class="step">
+                            <p><strong>3. Complete Payment</strong></p>
+                            <p>Click "Pay" to securely process your transaction. You'll receive an instant receipt via email.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Powered by <a href="https://lenco.co">Lenco</a> | <a href="#">Terms</a> | <a href="#">Privacy</a></p>
+        </div>
+    </div>
+
+    <!-- Right side (white background) -->
+    <div class="right-side">
+        <div class="main-content">
+            <!-- Message display area -->
+            <div id="messageContainer" class="message-container">
+                <div class="message-title" id="messageTitle"></div>
+                <div class="message-content" id="messageContent"></div>
+            </div>
+            
+            {% if not_found %}
+                <div class="error-container">
+                    <h1>Link Not Found</h1>
+                    <p>Sorry, the payment link you're looking for doesn't exist or has expired.</p>
+                </div>
+            {% elif not url or not key or not vendor_name or not amount or not currency or not channels %}
+                <div class="error-container">
+                    <h1>Payment Link Error</h1>
+                    <p>We're experiencing technical difficulties with this payment link.</p>
+                    <p>The error has been logged.</p>
+                </div>
+            {% else %}
+                
+                <!-- Receipt-style order summary -->
+                <div class="receipt">
+                    <div class="receipt-header">
+                        <div class="receipt-title">{{purchase_type}} ORDER SUMMARY</div>
+                        <div class="receipt-merchant">{{ vendor_name }}</div>
+                        <div class="receipt-date">{{ current_date }} {{ current_time }}</div>
+                    </div>
+                    
+                    <div class="receipt-body">
+                        <table class="receipt-items">
+                            <thead>
+                                <tr>
+                                    <th>ITEMS</th>
+                                    <th>AMOUNT</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>{{description}}</td>
+                                    <td>{{ currency }} {{ amount }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                        <div class="receipt-total-line">
+                            <span>TOTAL</span>
+                            <span>{{ currency }} {{ amount }}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="receipt-footer">
+                        <div>ORDER ID: ref-{{vendor_slug}}-{{datetime}}</div>
+                    </div>
+                </div>
+
+                <form id="paymentForm" onsubmit="return false;">
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="doe@gmail.com" required>
+                    </div>
+
+                    <button type="submit" id="payButton" onclick="validateAndSubmit()">
+                        Pay {{ currency }} {{ amount }}
+                    </button>
+                </form>
+                <div class="payment-logos">
+                    <img src="/files/visa_logo.png" alt="Visa">
+                    <img src="/files/mc-logo.svg" alt="Mastercard">
+                    <img src="/files/airtel logo.svg" alt="Airtel Money">
+                    <img src="/files/mtn-logo.svg" alt="MTN Mobile Money">
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        // Function to display messages
+        function showMessage(type, title, content) {
+            var container = document.getElementById('messageContainer');
+            container.style.display = 'block';
+            container.className = 'message-container ' + type;
+            document.getElementById('messageTitle').innerText = title;
+            document.getElementById('messageContent').innerText = content;
+        }
+
+        // Function to hide message
+        function hideMessage() {
+            document.getElementById('messageContainer').style.display = 'none';
+        }
+
+        // Function to validate form and then call Lenco payment
+        function validateAndSubmit() {
+            hideMessage();
+            
+            var email = document.getElementById('email').value.trim();
+            
+            if (!validateEmail(email)) {
+                showMessage('error', 'Email', 'Please provide a valid email address.');
+                return;
+            }
+            
+            // Call the Lenco payment function
+            getPaidWithLenco(email);
+        }
+        
+        // Email validation function
+        function validateEmail(email) {
+            var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return re.test(email);
+        }
+
+        function getPaidWithLenco(email) {            
+            // Check if LencoPay object exists
+            if (typeof LencoPay === 'undefined') {
+                showMessage('error', 'System Error', 'Payment system is not available at the moment. Please try again later.');
+                console.error("LencoPay is not defined. Make sure the Lenco SDK is loaded.");
+                return;
+            }
+            
+            LencoPay.getPaid({
+                key: "{{key}}",
+                reference: "ref-{{vendor_slug}}-{{datetime}}",
+                amount: "{{amount}}",
+                currency: "{{currency}}",
+                channels: JSON.parse("{{channels}}".replace(/'/g, "\"")),
+                
+                email: email,
+                customer: {
+                    // firstName: firstName,
+                    // lastName: lastName,
+                },
+                onSuccess: function (response) {
+                    //this happens after the payment is completed successfully
+                    const reference = response.reference;
+                    showMessage('success', 'Payment Completed!', 'Reference: ' + reference);
+                    //hide paymentForm
+
+                    const paymentForm = document.getElementById('paymentForm');
+                    paymentForm.style.display = 'none';
+                },
+                onClose: function () {
+                    showMessage('warning', 'Not Completed', 'Payment was not completed, window closed.');
+                },
+                onConfirmationPending: function () {
+                    showMessage('error', 'Error', 'Your purchase will be completed when the payment is confirmed.');
+                },
+
+            });
+        }
+
+        // Add this script for the expandable functionality
+        var expandables = document.getElementsByClassName("expandable-header");
+        for (var i = 0; i < expandables.length; i++) {
+            expandables[i].addEventListener("click", function() {
+                this.classList.toggle("active");
+                var content = this.nextElementSibling;
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        }
+    </script>
+</body>
+</html>

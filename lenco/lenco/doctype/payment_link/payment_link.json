@@ -1,0 +1,165 @@
+{
+ "actions": [],
+ "autoname": "format:Paylink-{###}",
+ "creation": "2025-03-07 19:39:22.725493",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "System",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "vendor_name",
+  "status",
+  "column_break_tyww",
+  "route",
+  "section_break_kxuc",
+  "description",
+  "column_break_eqlx",
+  "purchase_type",
+  "section_break_nrgj",
+  "currency",
+  "price",
+  "column_break_tueo",
+  "mode_of_payment",
+  "section_break_bikt",
+  "amended_from"
+ ],
+ "fields": [
+  {
+   "fieldname": "column_break_tyww",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_kxuc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "amended_from",
+   "fieldtype": "Link",
+   "label": "Amended From",
+   "no_copy": 1,
+   "options": "Payment Link",
+   "print_hide": 1,
+   "read_only": 1,
+   "search_index": 1
+  },
+  {
+   "description": "This is what will appear as payee",
+   "fieldname": "vendor_name",
+   "fieldtype": "Data",
+   "in_list_view": 1,
+   "label": "Vendor Name",
+   "reqd": 1
+  },
+  {
+   "fieldname": "currency",
+   "fieldtype": "Link",
+   "label": "Currency",
+   "options": "Currency",
+   "remember_last_selected_value": 1,
+   "reqd": 1
+  },
+  {
+   "fieldname": "price",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Price",
+   "options": "currency",
+   "precision": "2",
+   "reqd": 1
+  },
+  {
+   "allow_on_submit": 1,
+   "description": "Customize your payment link",
+   "fieldname": "route",
+   "fieldtype": "Data",
+   "label": "Link",
+   "unique": 1
+  },
+  {
+   "fieldname": "section_break_nrgj",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "column_break_tueo",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "section_break_bikt",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "mode_of_payment",
+   "fieldtype": "Table MultiSelect",
+   "label": "Modes of Payment",
+   "options": "Lenco Payment Mode",
+   "reqd": 1
+  },
+  {
+   "default": "Testing",
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Testing\nLive\nInactive"
+  },
+  {
+   "fieldname": "description",
+   "fieldtype": "Data",
+   "in_filter": 1,
+   "in_list_view": 1,
+   "label": "Short Item Description",
+   "length": 100,
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_eqlx",
+   "fieldtype": "Column Break"
+  },
+  {
+   "default": "Recurring",
+   "fieldname": "purchase_type",
+   "fieldtype": "Select",
+   "label": "Purchase Type",
+   "options": "Non-recurring\nRecurring",
+   "read_only": 1
+  }
+ ],
+ "hide_toolbar": 1,
+ "links": [],
+ "modified": "2025-03-10 16:53:04.473435",
+ "modified_by": "Administrator",
+ "module": "Lenco",
+ "name": "Payment Link",
+ "naming_rule": "Expression",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "if_owner": 1,
+   "print": 1,
+   "read": 1,
+   "report": 1,
+   "role": "All",
+   "share": 1,
+   "write": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}

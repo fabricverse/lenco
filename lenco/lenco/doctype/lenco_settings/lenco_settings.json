@@ -1,0 +1,91 @@
+{
+ "actions": [],
+ "creation": "2025-03-07 14:40:37.106843",
+ "default_view": "List",
+ "doctype": "DocType",
+ "document_type": "System",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "public_key",
+  "sandbox",
+  "column_break_tyww",
+  "section_break_kxuc",
+  "api_secret",
+  "column_break_qkxl",
+  "webhook_key"
+ ],
+ "fields": [
+  {
+   "fieldname": "column_break_tyww",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "webhook_key",
+   "fieldtype": "Password",
+   "label": "Webhook Key"
+  },
+  {
+   "default": "0",
+   "description": "Check this if you are testing your payment using the Sandbox API",
+   "fieldname": "sandbox",
+   "fieldtype": "Check",
+   "label": "Use Sandbox"
+  },
+  {
+   "fieldname": "public_key",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "Public Key",
+   "reqd": 1
+  },
+  {
+   "fieldname": "section_break_kxuc",
+   "fieldtype": "Section Break"
+  },
+  {
+   "fieldname": "api_secret",
+   "fieldtype": "Password",
+   "in_list_view": 1,
+   "label": "API Secret",
+   "reqd": 1
+  },
+  {
+   "fieldname": "column_break_qkxl",
+   "fieldtype": "Column Break"
+  }
+ ],
+ "in_create": 1,
+ "issingle": 1,
+ "links": [],
+ "modified": "2025-03-07 20:59:07.176521",
+ "modified_by": "Administrator",
+ "module": "Lenco",
+ "name": "Lenco Settings",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "create": 1,
+   "delete": 1,
+   "email": 1,
+   "export": 1,
+   "print": 1,
+   "read": 1,
+   "role": "System Manager",
+   "share": 1,
+   "write": 1
+  },
+  {
+   "email": 1,
+   "print": 1,
+   "read": 1,
+   "role": "All",
+   "share": 1
+  }
+ ],
+ "read_only": 1,
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "track_changes": 1
+}
