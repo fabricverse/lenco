@@ -4,6 +4,52 @@ import hashlib
 import hmac
 import json
 
+def get_payment_status(data):
+    # return *args
+    frappe.errprint("data", data)
+
+def request(doc, method):
+    return {
+        "status": True,
+        "message": "",
+        "data": {
+            "id": "d7bd9ccb-0737-4e72-a387-d00454341f21",
+            "initiatedAt": "2024-03-12T07:06:11.562Z",
+            "completedAt": "2024-03-12T07:14:10.412Z",
+            "amount": "10.00",
+            "fee": "0.25",
+            "bearer": "merchant",
+            "currency": "ZMW",
+            "reference": "ref-1",
+            "lencoReference": "240720004",
+            "type": "mobile-money",
+            "status": "successful",
+            "source": "api",
+            "reasonForFailure": None,
+            "settlementStatus": "settled",
+            "settlement": {
+                "id": "c04583d7-d026-4dfa-b8b5-e96f17f93bb8",
+                "amountSettled": "9.75",
+                "currency": "ZMW",
+                "createdAt": "2024-03-12T07:14:10.439Z",
+                "settledAt": "2024-03-12T07:14:10.496Z",
+                "status": "settled",
+                "type": "instant",
+                "accountId": "68f11209-451f-4a15-bfcd-d916eb8b09f4"
+            },
+            "mobileMoneyDetails": {
+                "country": "zm",
+                "phone": "0977433571",
+                "operator": "airtel",
+                "accountName": "Beata Jean"
+            },
+            "bankAccountDetails": None,
+            "cardDetails": None
+        }
+    }
+    
+
+
 def get_paid_with_lenco(public_key, secret_key, email, amount, currency="ZMW", channels=["card", "mobile-money"], first_name="John", last_name="Doe", phone="0971111111"):
     """
     Simulates a Lenco payment process (client-side and server-side verification).
@@ -66,10 +112,11 @@ def get_paid_with_lenco(public_key, secret_key, email, amount, currency="ZMW", c
     except json.JSONDecodeError:
         print("Error decoding JSON response from Lenco API.")
 
-# Example usage (replace with your actual keys and customer data)
-public_key = "YOUR_PUBLIC_KEY" #replace with your public key
-secret_key = "YOUR_SECRET_KEY" #replace with your secret key
-customer_email = "customer@email.com"
-payment_amount = 1000
+def run():
+    # Example usage (replace with your actual keys and customer data)
+    public_key = "YOUR_PUBLIC_KEY" #replace with your public key
+    secret_key = "YOUR_SECRET_KEY" #replace with your secret key
+    customer_email = "customer@email.com"
+    payment_amount = 1000
 
-get_paid_with_lenco(public_key, secret_key, customer_email, payment_amount)
+    get_paid_with_lenco(public_key, secret_key, customer_email, payment_amount)

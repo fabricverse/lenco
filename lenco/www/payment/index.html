@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>Bantoo | Pay with Lenco</title>
+    <title>Bantoo Pay | Checkout</title>
     <header>
         <script src={{url}}></script>
     </header>
@@ -28,50 +27,65 @@
         .left-side {
             background-color: #f5f5f5;
             width: 50%;
-            padding: 80px 60px;
+            padding: 40px 60px; /* Adjusted from 80px 60px */
             display: flex;
             flex-direction: column;
-            justify-content: space-between;
+            /* Removed justify-content: space-between for natural stacking */
         }
 
         /* Right side - white background */
         .right-side {
             background-color: white;
             width: 50%;
-            padding: 120px 40px 40px;
+            padding: 40px 40px;
             display: flex;
             flex-direction: column;
-            align-items: center;
             justify-content: space-between;
+            align-items: center; /* Centers main-content horizontally */
         }
 
         .logo {
             margin-bottom: 60px;
+            text-align: left;
         }
 
-        /* Hero section styling for left side */
+        .logo a {
+            text-decoration: none;
+            font-size: 60px;
+            color: transparent;
+            background: linear-gradient(45deg, #FF4500, #FFA500);
+            -webkit-background-clip: text;
+            background-clip: text;
+            display: inline-block;
+            transition: all 0.3s ease;
+        }
+
+        .logo a:hover {
+            transform: scale(1.1);
+            filter: brightness(1.2);
+        }
+
+        .logo a:active {
+            transform: rotate(360deg) scale(1.1);
+        }
+
         .hero-content {
             max-width: 450px;
-            margin-top: 30px;
         }
 
-        h1 {
-            font-size: 24px;
-            font-weight: 600;
-            color: #111;
-            margin-bottom: 30px;
-        }
-
-        h2 {
+        /* h2 {
             font-size: 40px;
             font-weight: 600;
             color: #aaaaaa;
             margin-bottom: 24px;
             line-height: 1.2;
-        }
-
-        .payment-info {
-            max-width: 450px;
+        } */
+        h2 {
+            font-size: 52px; /* Increased from default */
+            font-weight: 600;
+            color: #333; /* Darkened for contrast */
+            margin-bottom: 24px;
+            line-height: 1.2;
         }
 
         .payment-info p {
@@ -81,83 +95,22 @@
             color: #7a7a7a;
         }
 
-        .expandable-section {
-            margin-top: 40px;
-        }
-
-        .expandable-header {
-            background: none;
-            font-weight: 500;
-            color: #aaaaaa;
-            cursor: pointer;
-            padding: 8px 0;
+        /* .main-content {
             width: 100%;
-            border: none;
-            text-align: left;
-            outline: none;
-            font-size: 16px;
+            max-width: 360px;
             display: flex;
+            flex-direction: column;
             align-items: center;
-            justify-content: space-between;
-        }
-
-        .expandable-header:after {
-            content: '+';
-            font-size: 18px;
-            color: #aaaaaa;
-        }
-
-        .expandable-header.active:after {
-            content: '−';
-        }
-
-        .expandable-content {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.2s ease-out;
-            background-color: rgba(255, 255, 255, 0.5);
-            border-radius: 6px;
-        }
-
-        .step {
-            padding: 16px;
-            border-bottom: 1px solid #eee;
-        }
-
-        .step:last-child {
-            border-bottom: none;
-        }
-
-        .step strong {
-            color: #aaaaaa;
-            font-weight: 500;
-        }
-
-        .footer {
-            font-size: 14px;
-            color: #888;
-            margin-top: 40px;
-        }
-
-        .footer a {
-            color: #666;
-            text-decoration: none;
-        }
-
-        .footer a:hover {
-            text-decoration: underline;
-        }
-
-        /* Main content area for right side */
+        } */
         .main-content {
             width: 100%;
             max-width: 360px;
             display: flex;
             flex-direction: column;
             align-items: center;
+            margin-top: 120px; /* Aligns with hero text on desktop */
         }
 
-        /* Receipt-Style Order Summary */
         .receipt {
             background-color: white;
             border-radius: 8px;
@@ -181,12 +134,6 @@
             text-transform: uppercase;
             margin-bottom: 4px;
             letter-spacing: 0.5px;
-        }
-
-        .receipt-subtitle {
-            font-size: 12px;
-            color: #666;
-            margin-bottom: 6px;
         }
 
         .receipt-merchant {
@@ -218,17 +165,17 @@
             color: #666;
         }
 
-        .receipt-items th:last-child {
+        .receipt-items th:last-child,
+        .receipt-items td:last-child {
             text-align: right;
         }
 
         .receipt-items td {
             padding: 8px 4px;
             font-size: 13px;
-        }
-
-        .receipt-items td:last-child {
-            text-align: right;
+            word-wrap: break-word;
+            white-space: normal;
+            max-width: 250px;
         }
 
         .receipt-total-line {
@@ -249,7 +196,6 @@
             color: #666;
         }
 
-        /* Form styling */
         .form-group {
             margin-bottom: 18px;
             width: 100%;
@@ -301,7 +247,6 @@
             transform: translateY(-1px);
         }
 
-        /* Message container */
         .message-container {
             display: none;
             padding: 12px;
@@ -331,7 +276,6 @@
             margin-bottom: 4px;
         }
 
-        /* Payment method logos */
         .payment-logos {
             display: flex;
             justify-content: center;
@@ -346,68 +290,63 @@
             mix-blend-mode: luminosity;
             opacity: 0.8;
             filter: contrast(1.2);
-            transition: mix-blend-mode 0.3s ease; /* Add transition for smooth effect */
+            transition: mix-blend-mode 0.3s ease;
         }
+
         .payment-logos img:hover {
             mix-blend-mode: normal;
-            opacity: 1; /* optional, make it fully opaque on hover */
+            opacity: 1;
         }
 
-        /* Ensure description text wraps properly */
-        .receipt-items td {
-            padding: 8px 4px;
-            font-size: 13px;
-            word-wrap: break-word;
-            white-space: normal;
-            max-width: 250px; /* Control width of description cell */
+        .footer {
+            font-size: 14px;
+            color: #888;
+            text-align: center;
         }
 
-        /* For very small screens, ensure proper stacking */
+        .footer a {
+            color: #666;
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
         @media (max-width: 768px) {
             body {
                 flex-direction: column;
             }
-            
             .left-side, .right-side {
                 width: 100%;
                 padding: 40px 24px;
             }
-            
-            .left-side {
-                display: flex;
-                flex-direction: column;
-                min-height: 300px;
+            .logo {
+                margin-bottom: 20px;
+                margin-top: 0px; 
+                text-align: center;
             }
-            
-            .right-side {
-                display: flex;
-                flex-direction: column;
-                min-height: 400px;
+            .logo a {
+                font-size: 50px;
             }
-            
+
+            h2 {
+                font-size: 32px; /* Reduced for mobile */
+            }
+            .hero-content p {
+                margin-bottom: 0px;
+            }
             .main-content {
-                margin: 0 auto;
-                flex: 1;
+                margin-top: 0; /* Resets desktop offset */
             }
-            
+            .footer {
+                margin-top: 50px;
+            }
             .payment-logos {
-                margin-top: 30px;
-                width: 100%;
-            }
-            
-            /* Ensure footer displays at the bottom on mobile */
-            .page-container {
-                display: flex;
-                flex-direction: column;
-                min-height: 100vh;
-            }
-            
-            .page-content {
-                flex: 1;
+                margin-top: 40px;
             }
         }
 
-        /* Dark mode support for payment logos */
         @media (prefers-color-scheme: dark) {
             .payment-logos img {
                 filter: brightness(1.2) contrast(1.5);
@@ -416,53 +355,30 @@
             }
         }
     </style>
+    <script src="https://kit.fontawesome.com/12db0e6b64.js" crossorigin="anonymous"></script>
+    <!-- <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdnjs.cloudflare.com https://lenco.co https://pay.lenco.co; style-src 'self' https://cdnjs.cloudflare.com; font-src 'self' https://cdnjs.cloudflare.com;"> -->
 </head>
 <body>
     <!-- Left side (grey background) -->
     <div class="left-side">
-        <div class="hero-content">
-            <div class="logo">
-                <img src="https://bantoo.app/files/eIeGfxq.png" height="40px" width="auto"/>
-            </div>
-
-            <div class="payment-info">
-                <h2>Quick & Easy Payments</h2>
-                <p>Bantoo Pay helps entrepreneurs and creators quickly get paid in places without Stripe or Paypal.</p>
-                
-                <div class="expandable-section">
-                    <button class="expandable-header">How It Works</button>
-                    <div class="expandable-content">
-                        <div class="step">
-                            <p><strong>1. Enter Your Email</strong></p>
-                            <p>Provide your email address for a receipt and confirmation.</p>
-                        </div>
-                        <div class="step">
-                            <p><strong>2. Review Payment Details</strong></p>
-                            <p>Double-check the vendor name, service description, and total amount before proceeding.</p>
-                        </div>
-                        <div class="step">
-                            <p><strong>3. Complete Payment</strong></p>
-                            <p>Click "Pay" to securely process your transaction. You'll receive an instant receipt via email.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="logo">
+            <a href="/home"><i class="fa-solid fa-infinity"></i></a>
         </div>
-
-        <div class="footer">
-            <p>Powered by <a href="https://lenco.co">Lenco</a> | <a href="#">Terms</a> | <a href="#">Privacy</a></p>
+        <div class="hero-content">
+            <div class="payment-info">
+                <h2>Easy payments for creators</h2>
+                <p>in places without Stripe or Paypal</p>
+            </div>
         </div>
     </div>
 
     <!-- Right side (white background) -->
     <div class="right-side">
         <div class="main-content">
-            <!-- Message display area -->
             <div id="messageContainer" class="message-container">
                 <div class="message-title" id="messageTitle"></div>
                 <div class="message-content" id="messageContent"></div>
             </div>
-            
             {% if not_found %}
                 <div class="error-container">
                     <h1>Link Not Found</h1>
@@ -475,15 +391,12 @@
                     <p>The error has been logged.</p>
                 </div>
             {% else %}
-                
-                <!-- Receipt-style order summary -->
                 <div class="receipt">
                     <div class="receipt-header">
                         <div class="receipt-title">{{purchase_type}} ORDER SUMMARY</div>
                         <div class="receipt-merchant">{{ vendor_name }}</div>
                         <div class="receipt-date">{{ current_date }} {{ current_time }}</div>
                     </div>
-                    
                     <div class="receipt-body">
                         <table class="receipt-items">
                             <thead>
@@ -499,24 +412,20 @@
                                 </tr>
                             </tbody>
                         </table>
-                        
                         <div class="receipt-total-line">
                             <span>TOTAL</span>
                             <span>{{ currency }} {{ amount }}</span>
                         </div>
                     </div>
-                    
                     <div class="receipt-footer">
                         <div>ORDER ID: ref-{{vendor_slug}}-{{datetime}}</div>
                     </div>
                 </div>
-
                 <form id="paymentForm" onsubmit="return false;">
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="doe@gmail.com" required>
+                        <!-- <label for="email">Email</label> -->
+                        <input type="email" id="email" placeholder="Email" required>
                     </div>
-
                     <button type="submit" id="payButton" onclick="validateAndSubmit()">
                         Pay {{ currency }} {{ amount }}
                     </button>
@@ -529,10 +438,16 @@
                 </div>
             {% endif %}
         </div>
+        <footer class="footer">
+            <div class="container">
+                <div class="footer-content">
+                    <p>Powered by <a href="https://lenco.co" target="_blank">Lenco</a> | <a href="/terms">Terms</a> | <a href="/privacy">Privacy</a></p>
+                </div>
+            </div>
+        </footer>
     </div>
 
     <script>
-        // Function to display messages
         function showMessage(type, title, content) {
             var container = document.getElementById('messageContainer');
             container.style.display = 'block';
@@ -541,60 +456,43 @@
             document.getElementById('messageContent').innerText = content;
         }
 
-        // Function to hide message
         function hideMessage() {
             document.getElementById('messageContainer').style.display = 'none';
         }
 
-        // Function to validate form and then call Lenco payment
         function validateAndSubmit() {
             hideMessage();
-            
             var email = document.getElementById('email').value.trim();
-            
             if (!validateEmail(email)) {
                 showMessage('error', 'Email', 'Please provide a valid email address.');
                 return;
             }
-            
-            // Call the Lenco payment function
             getPaidWithLenco(email);
         }
-        
-        // Email validation function
+
         function validateEmail(email) {
             var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
             return re.test(email);
         }
 
-        function getPaidWithLenco(email) {            
-            // Check if LencoPay object exists
+        function getPaidWithLenco(email) {
             if (typeof LencoPay === 'undefined') {
                 showMessage('error', 'System Error', 'Payment system is not available at the moment. Please try again later.');
                 console.error("LencoPay is not defined. Make sure the Lenco SDK is loaded.");
                 return;
             }
-            
             LencoPay.getPaid({
                 key: "{{key}}",
                 reference: "ref-{{vendor_slug}}-{{datetime}}",
                 amount: "{{amount}}",
                 currency: "{{currency}}",
                 channels: JSON.parse("{{channels}}".replace(/'/g, "\"")),
-                
                 email: email,
-                customer: {
-                    // firstName: firstName,
-                    // lastName: lastName,
-                },
+                customer: {},
                 onSuccess: function (response) {
-                    //this happens after the payment is completed successfully
                     const reference = response.reference;
                     showMessage('success', 'Payment Completed!', 'Reference: ' + reference);
-                    //hide paymentForm
-
-                    const paymentForm = document.getElementById('paymentForm');
-                    paymentForm.style.display = 'none';
+                    document.getElementById('paymentForm').style.display = 'none';
                 },
                 onClose: function () {
                     showMessage('warning', 'Not Completed', 'Payment was not completed, window closed.');
@@ -602,21 +500,6 @@
                 onConfirmationPending: function () {
                     showMessage('error', 'Error', 'Your purchase will be completed when the payment is confirmed.');
                 },
-
-            });
-        }
-
-        // Add this script for the expandable functionality
-        var expandables = document.getElementsByClassName("expandable-header");
-        for (var i = 0; i < expandables.length; i++) {
-            expandables[i].addEventListener("click", function() {
-                this.classList.toggle("active");
-                var content = this.nextElementSibling;
-                if (content.style.maxHeight) {
-                    content.style.maxHeight = null;
-                } else {
-                    content.style.maxHeight = content.scrollHeight + "px";
-                }
             });
         }
     </script>

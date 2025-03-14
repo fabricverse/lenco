@@ -8,7 +8,7 @@ def get_context(context):
 
     settings = frappe.get_doc("Lenco Settings")
     context.key = get_decrypted_password("Lenco Settings", "Lenco Settings", "api_public_key", False)
-
+    #"pub-e2c508bc1bf4d846ed54fa7f22dd3f0c2ae5e8422052a552"
     context.url = "https://pay.lenco.co/js/v1/inline.js"
     if settings.sandbox == 1:
         context.url = "https://pay.sandbox.lenco.co/js/v1/inline.js"

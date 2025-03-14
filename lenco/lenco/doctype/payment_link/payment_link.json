@@ -116,17 +116,20 @@
    "fieldtype": "Column Break"
   },
   {
-   "default": "Recurring",
+   "default": "Non-recurring",
+   "description": "Recurring payments are not yet supported.",
    "fieldname": "purchase_type",
    "fieldtype": "Select",
    "label": "Purchase Type",
+   "no_copy": 1,
    "options": "Non-recurring\nRecurring",
-   "read_only": 1
+   "read_only": 1,
+   "reqd": 1
   }
  ],
  "hide_toolbar": 1,
  "links": [],
- "modified": "2025-03-10 16:53:04.473435",
+ "modified": "2025-03-13 10:22:37.456392",
  "modified_by": "Administrator",
  "module": "Lenco",
  "name": "Payment Link",

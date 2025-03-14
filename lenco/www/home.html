@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Bantoo Pay | Accept Payments in Zambia</title>
+    <script src="https://kit.fontawesome.com/12db0e6b64.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+body {
+    color: #333;
+    line-height: 1.5;
+    font-weight: 400;
+    background-color: #ffffff;
+}
+
+.container {
+    max-width: 1140px; /* Widened for better spacing */
+    margin: 0 auto;
+    padding: 0 24px;
+}
+
+/* Header Styling */
+header {
+    background-color: #ffffff;
+    padding: 40px 0;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+    text-align: center;
+}
+
+.logo a {
+    text-decoration: none;
+    font-size: 60px; /* Slightly larger to match the prominence in the image */
+    color: transparent; /* Hide the default black color */
+    background: linear-gradient(45deg, #FF4500, #FFA500); /* Gradient from orange (#FF4500) to yellow (#FFA500) */
+    -webkit-background-clip: text; /* Apply gradient to text */
+    background-clip: text; /* Standard property for text gradient */
+    display: inline-block; /* Ensure proper rendering */
+    transition: all 0.3s ease; /* Smooth transitions */
+}
+
+.logo a:hover {
+    transform: scale(1.1); /* Scale up on hover */
+    filter: brightness(1.2); /* Slight brightness increase for hover effect */
+}
+
+.logo a:active {
+    transform: rotate(360deg) scale(1.1); /* Combine rotation and scale for Easter egg */
+}
+
+/* Hero Section */
+.hero {
+    background-color: #ffffff; /* Solid white, no gradient */
+    padding: 100px 0; /* Increased padding */
+    animation: fadeIn 1s ease-in;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.hero-content {
+    max-width: 700px; /* Widened for better text flow */
+    margin: 0 auto;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 36px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 30px; /* Increased spacing */
+    line-height: 1.2;
+}
+
+.hero-content p {
+    font-size: 18px;
+    margin-bottom: 30px;
+    color: #7a7a7a;
+    line-height: 1.6;
+}
+
+.cta-button {
+    background-color: #3066BE;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    padding: 14px 28px;
+    font-size: 15px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: background-color 0.2s ease; /* Simplified hover effect */
+    text-decoration: none;
+    display: inline-block;
+}
+
+.cta-button:hover {
+    background-color: #2855a3; /* Removed scale effect for minimalism */
+}
+
+/* Features Section */
+.features {
+    padding: 100px 0; /* Increased padding */
+    background-color: #f9f9f9; /* Subtle light gray */
+}
+
+.section-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 50px;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 50px; /* Increased gap */
+    justify-items: center;
+    align-items: start;
+}
+
+.feature-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    max-width: 300px;
+}
+
+.feature-icon {
+    width: 50px;
+    height: 50px;
+    background-color: #f0f0f0; /* Lighter, simpler background */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #7a7a7a;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* How It Works Section */
+.how-it-works {
+    padding: 100px 0; /* Increased padding */
+    background-color: #ffffff; /* Solid white */
+}
+
+.steps-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 40px; /* Increased gap */
+    margin-top: 40px;
+}
+
+.step-card {
+    background-color: #f9f9f9; /* Subtle background */
+    border-radius: 6px;
+    padding: 24px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.step-number {
+    font-size: 32px;
+    font-weight: 700;
+    color: #ccc;
+    margin-bottom: 16px;
+}
+
+.step-card h3 {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 12px;
+}
+
+.step-card p {
+    color: #7a7a7a;
+    line-height: 1.6;
+    font-size: 15px;
+}
+
+/* Payment Methods Section */
+.payment-methods {
+    padding: 100px 0; /* Increased padding */
+    background-color: #f9f9f9; /* Subtle light gray */
+}
+
+.payment-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 30px; /* Increased gap */
+    margin-top: 40px;
+}
+
+.payment-card {
+    text-align: center;
+    padding: 20px;
+}
+
+.payment-logo {
+    height: 50px;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.payment-logo img {
+    height: 30px;
+    width: 60px;
+    object-fit: contain;
+    opacity: 0.8;
+    transition: opacity 0.2s ease; /* Simplified hover effect */
+}
+
+.payment-logo img:hover {
+    opacity: 1; /* Removed scale effect */
+}
+
+.payment-card h3 {
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* CTA Section */
+.cta-section {
+    padding: 100px 0; /* Increased padding */
+    background-color: #ffffff; /* Solid white */
+    text-align: center;
+}
+
+.cta-section h2 {
+    font-size: 28px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 24px;
+}
+
+.cta-section p {
+    font-size: 16px;
+    margin-bottom: 30px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    color: #7a7a7a;
+}
+
+/* Footer */
+footer {
+    background-color: #f9f9f9; /* Subtle light gray */
+    padding: 40px 0 30px;
+    font-size: 14px;
+    color: #888;
+    border-top: 1px solid #eee; /* Softer border */
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+footer a {
+    color: #666;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.social-links {
+    display: flex;
+    gap: 16px;
+}
+
+.social-icon {
+    width: 24px;
+    height: 24px;
+    opacity: 0.7;
+    transition: opacity 0.2s ease; /* Simplified hover effect */
+}
+
+.social-icon:hover {
+    opacity: 1; /* Removed rotation for minimalism */
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 28px;
+    }
+
+    .section h2 {
+        font-size: 20px;
+    }
+
+    .logo a {
+        font-size: 50px; /* Slightly smaller on mobile */
+    }
+
+    .features-grid, .steps-container /*, .payment-grid */ {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .social-links {
+        justify-content: center;
+    }
+}
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">
+                <a href="/home">
+                    <i class="fa-solid fa-infinity"></i>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Accept Global Payments Easily in Zambia</h1>
+                <p>No PayPal or Stripe needed. Get paid online quickly and securely with Bantoo Pay.</p>
+                <a href="#" class="cta-button">Get Early Access</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features">
+        <div class="container">
+            <h2 class="section-title">Bantoo Pay lets you</h2>
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fa-solid fa-link"></i>
+                    </div>
+                    <h3>Create payment links in seconds</h3>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-dollar-sign"></i>
+                    </div>
+                    <h3>Start with zero setup fees</h3>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-credit-card"></i><i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Accept cards and mobile money</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="how-it-works">
+        <div class="container">
+            <h2 class="section-title">How It Works</h2>
+            <div class="steps-container">
+                <div class="step-card">
+                    <div class="step-number">1</div>
+                    <h3>Create a payment link</h3>
+                    <p>Set up your link in just a few clicks.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
+                    <h3>Share it</h3>
+                    <p>Email the link, post it on social media, or add it to your website.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
+                    <h3>They pay instantly</h3>
+                    <p>Customers can pay you using cards or mobile money.</p>
+                </div>
+                <div class="step-card">
+                    <div class="step-number">4</div>
+                    <h3>Get your money</h3>
+                    <p>We deposited into your preffered account.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="payment-methods">
+        <div class="container">
+            <h2 class="section-title">Payment Options</h2>
+            <div class="payment-grid">
+                <div class="payment-card">
+                    <div class="payment-logo">
+                        <img src="/files/visa_logo.png" alt="Visa">
+                    </div>
+                </div>
+                <div class="payment-card">
+                    <div class="payment-logo">
+                        <img src="/files/mc-logo.svg" alt="Mastercard">
+                    </div>
+                </div>
+                <div class="payment-card">
+                    <div class="payment-logo">
+                        <img src="/files/mtn-logo.svg" alt="MTN Mobile Money">
+                    </div>
+                </div>
+                <div class="payment-card">
+                    <div class="payment-logo">
+                        <img src="/files/airtel logo.svg" alt="Airtel Money">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="cta-section">
+        <div class="container">
+            <h2>Start Accepting Payments Today</h2>
+            <p>Built for Zambian entrepreneurs, freelancers, and creators.</p>
+            <a href="#" class="cta-button">Get Early Access</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <p>Powered by <a href="https://lenco.co" target="_blank">Lenco</a> | <a href="/terms">Terms</a> | <a href="/privacy">Privacy</a></p>
+                <div class="social-links">
+                    <a href="https://x.com/bantoo_pay" target="_blank">
+                        <i class="fab fa-x-twitter"></i> 
+                    </a>
+                    <!-- <a href="#"><img src="/api/placeholder/24/24" alt="Facebook" class="social-icon"></a> -->
+                    <a href="https://www.instagram.com/bantoo_pay" target="_blank">
+                        <i class="fab fa-instagram"></i> 
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
