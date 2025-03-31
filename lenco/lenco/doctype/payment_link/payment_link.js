@@ -1,10 +1,50 @@
 // Copyright (c) 2025, Adam Dawoodjee and contributors
 // For license information, please see license.txt
-
+// Define the test function
+function test(frm) {
+  frappe.call({
+      method: "lenco.app.check_transaction_state",
+      args: {
+          reference: '123', // Replace with dynamic value if needed
+          api_secret_key: '123', // Replace with dynamic value if needed
+          transaction: '1' // Replace with dynamic value if needed
+      },
+      callback: function(response) {
+          // Handle the response from the server
+          if (response.message) {
+              // Assuming the server returns the transaction status or an error
+              frappe.msgprint({
+                  title: __('Transaction Status'),
+                  message: response.message.status || response.message.error || 'Unknown response',
+                  indicator: response.message.status === 'successful' ? 'green' : 'red'
+              });
+          } else {
+              frappe.msgprint({
+                  title: __('Error'),
+                  message: __('Failed to check transaction state.'),
+                  indicator: 'red'
+              });
+          }
+      },
+      error: function(err) {
+          // Handle errors (e.g., network issues, server errors)
+          frappe.msgprint({
+              title: __('Error'),
+              message: __('An error occurred while checking the transaction state: ') + err.message,
+              indicator: 'red'
+          });
+      }
+  });
+}
 frappe.ui.form.on("Payment Link", {
 	refresh(frm) {
         set_vendor_name(frm);
         set_route(frm)
+
+        // Add a custom button to trigger the test function
+        frm.add_custom_button(__('Check Transaction State'), function() {
+            test(frm);
+        });
 	},
     vendor_name(frm){
         // set_vendor_name(frm);

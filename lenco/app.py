@@ -3,12 +3,168 @@ import time
 import hashlib
 import hmac
 import json
+import frappe
+from frappe import _
+from frappe.utils.password import get_decrypted_password
+
+def get_settings():
+    """
+    Retrieve the Lenco Settings document.
+
+    Returns:
+        frappe.Document: The "Lenco Settings" document containing all settings fields.
+    """
+    return frappe.get_cached_doc("Lenco Settings", "Lenco Settings")
+
+def get_keys(settings):
+    """
+    Retrieve the decrypted API keys from the Lenco Settings.
+
+    Args:
+        settings (frappe.Document): The "Lenco Settings" document.
+
+    Returns:
+        dict: A dictionary containing 'public_key' and 'secret_key' with their decrypted values.
+
+    Raises:
+        frappe.ValidationError: If required keys are not found.
+    """
+
+    keys = {}
+    public_key = get_decrypted_password("Lenco Settings", "Lenco Settings", "api_public_key", False)
+    secret_key = get_decrypted_password("Lenco Settings", "Lenco Settings", "api_secret", False)
+    if public_key:
+        pass
+    else:
+        public_key = None
+
+    if secret_key:
+        pass
+    else:
+        secret_key = None
+
+    # Validate that the secret key is present (required for API calls)
+    if not secret_key:
+        frappe.throw(_("API secret key not configured in Lenco Settings."))
+
+    return {
+        'public_key': public_key,
+        'secret_key': secret_key
+    }
+
+@frappe.whitelist()
+def check_transaction_state(reference="ref-adam-dawoodjee-21032025092553", transaction=None):
+    # url = f"https://api.lenco.co/access/v2/collections/status/{reference}"
+
+    # headers = {
+    #     "accept": "application/json",
+    #     "Authorization": "Bearer xo+CAiijrIy9XvZCYyhjrv0fpSAL6CfU8CgA+up1NXqK"
+    # }
+
+    # response = requests.get(url, headers=headers)
+
+    # print(response.text)
+    # return
+    """
+    Check the state of a transaction using the Lenco API.
+
+    Args:
+        reference (str): The transaction reference to check.
+        transaction (str, optional): Additional transaction identifier (e.g., for logging or context).
+
+    Returns:
+        dict: A dictionary containing transaction details if successful, or an error message if failed.
+
+    Raises:
+        frappe.ValidationError: If the reference is invalid or settings cannot be retrieved.
+    """
+
+    reference = "ref-adam-dawoodjee-21032025100401"
+    # Validate the reference
+    if not reference or not isinstance(reference, str) or reference.strip() == "":
+        return {"error": _("Invalid transaction reference provided.")}
+
+    # Retrieve settings and keys
+    try:
+        settings = get_settings()
+        keys = get_keys(settings)
+        api_secret_key = keys["secret_key"]
+    except Exception as e:
+        return {"error": _("Failed to retrieve Lenco settings: {0}").format(str(e))}
+
+    # Determine the API endpoint based on sandbox mode
+    if settings.sandbox == 1:
+        url = f"https://sandbox.lenco.co/access/v2/collections/status/{reference}"
+        url = "https://sandbox.lenco.co/access/v2/collections?page=1"
+    else:
+        url = f"https://api.lenco.co/access/v2/collections/status/{reference}"
+
+    headers = {"Authorization": f"Bearer {api_secret_key}"}
+
+    print(url, api_secret_key)
+
+    try:
+        # Make the API request
+        response = requests.get(url, headers=headers, timeout=10)  # Added timeout for reliability
+        response.raise_for_status()  # Raises an exception for 4xx/5xx status codes
+
+        # Parse the JSON response
+        data = response.json()
+
+        # Check if the API call was successful based on the 'status' field
+        if data.get("status", False):
+            transaction_data = data["data"]
+            print(transaction_data)
+            return transaction_data
+            result = {
+                "status": transaction_data.get("status", "unknown"),
+                "amount": transaction_data.get("amount", "0.00"),
+                "currency": transaction_data.get("currency", "ZMW"),
+                "settlement_status": transaction_data.get("settlementStatus", "unknown"),
+                "reference": transaction_data.get("reference", ""),
+                "lenco_reference": transaction_data.get("lencoReference", ""),
+                "type": transaction_data.get("type", ""),
+                "source": transaction_data.get("source", ""),
+                "reason_for_failure": transaction_data.get("reasonForFailure", None),
+                "mobile_money_details": transaction_data.get("mobileMoneyDetails", {}),
+                "bank_account_details": transaction_data.get("bankAccountDetails", {}),
+                "card_details": transaction_data.get("cardDetails", {})
+            }
+            # Optionally log the transaction if provided
+            if transaction:
+                result["transaction"] = transaction
+            return result
+        else:
+            return {"error": data.get("message", "Unknown error from API")}
+
+    except requests.exceptions.HTTPError as e:
+        # Handle specific HTTP errors
+        status_code = e.response.status_code
+        if status_code == 404:
+            return {"error": "Transaction not found"}
+        elif status_code == 401:
+            return {"error": "Unauthorized: Invalid API key"}
+        elif status_code == 429:
+            return {"error": "Rate limit exceeded. Please try again later."}
+        else:
+            return {"error": f"HTTP error {status_code}: {e.response.text}"}
+    except requests.exceptions.Timeout:
+        return {"error": "Request timed out. Please check your network connection."}
+    except requests.exceptions.RequestException as e:
+        # Handle other network-related errors
+        return {"error": f"Network error: {str(e)}"}
+    except ValueError:
+        # Handle JSON parsing errors
+        return {"error": "Invalid response format from API"}
+
+
 
 def get_payment_status(data):
     # return *args
-    frappe.errprint("data", data)
+    # print("data", data)
+    return
 
-def request(doc, method):
+def request(doc=None, method=None):
     return {
         "status": True,
         "message": "",
